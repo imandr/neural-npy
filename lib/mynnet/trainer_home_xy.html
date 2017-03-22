@@ -1,0 +1,137 @@
+<html>
+
+<head>
+    <meta http-equiv="refresh" content="10">
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/xy.js"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+</head>
+
+<body>
+
+<!--
+    <table>
+    <tr>
+        <td><div id="loss_chart" style="width: 600px; height: 400px; border:1px solid gray"></div></td>
+        <td><div id="error_chart" style="width: 600px; height: 400px; border:1px solid gray"></div></td>
+    </td>
+</table>
+    -->
+    
+<div id="loss_chart" style="width: 1000px; height: 400px; border:1px solid gray"></div>
+<div id="error_chart" style="width: 1000px; height: 400px; border:1px solid gray"></div>
+
+
+<script type="text/javascript">
+    var data = %(json_data)s;      // data goes here
+    
+    function copy(x)
+    {
+        var o = {};
+        for( k in x )
+            o[k] = x[k];
+        return o;
+    }
+    
+    var opts_loss = {
+        "type": "xy", 
+        "dataProvider": data,
+        "valueAxes": [{
+                "position": "bottom",
+                "dashLength": 1,
+                "axisAlpha": 0.5,
+                "title": "Samples"
+            }, {
+                "precision":3,
+                "logarithmic":true,
+                "axisAlpha": 0.5,
+                "dashLength": 1,
+                "position": "left",
+                "title": "Loss"
+            }
+        ],
+        "titles": [
+            {   "text":"Loss"   }
+        ], 
+        "legend": {
+            "align": "left"
+        },
+        "graphs": [
+            {
+                "xField":"samples",
+                "yField":"tloss",
+                "balloonText": "samples:[[x]]<br/>training loss:[[y]]", 
+                "title": "Training", 
+                "bullet":  "round",
+                "bulletSize":  3,
+                "lineAlpha": 1.0
+            },
+            {
+                "xField":"samples",
+                "yField":"vloss",
+                "balloonText": "samples:[[x]]<br/>validation loss:[[y]]", 
+                "lineThickness": 2,
+                "lineColor": "#223355",
+                "title": "Validation", 
+                "bullet":  "round",
+                "bulletSize":  3,
+                "lineAlpha": 1.0
+            }
+        ]
+    };
+
+    var opts_errors = {
+        "type": "xy", 
+        "dataProvider": data,
+        "valueAxes": [{
+                "position": "bottom",
+                "dashLength": 1,
+                "axisAlpha": 0.5,
+                "title": "Samples"
+            }, {
+                "precision":3,
+                "logarithmic":true,
+                "axisAlpha": 0.5,
+                "dashLength": 1,
+                "position": "left",
+                "title": "Error"
+            }
+        ],
+        "titles": [
+            {   "text":"Error"   }
+        ], 
+        "legend": {
+            "align": "left"
+        },
+        "graphs": [
+            {
+                "xField":"samples",
+                "yField":"terror",
+                "balloonText": "samples:[[x]]<br/>training error:[[y]]", 
+                "title": "Training", 
+                "bullet":  "round",
+                "bulletSize":  3,
+                "lineAlpha": 1.0
+            },
+            {
+                "xField":"samples",
+                "yField":"verror",
+                "balloonText": "samples:[[x]]<br/>validation error:[[y]]", 
+                "lineThickness": 2,
+                "lineColor": "#223355",
+                "title": "Validation", 
+                "bullet":  "round",
+                "bulletSize":  3,
+                "lineAlpha": 1.0
+            }
+        ]
+    };
+
+
+    var loss_chart = AmCharts.makeChart("loss_chart", opts_loss );
+    var error_chart = AmCharts.makeChart("error_chart", opts_errors );
+
+</script>
+</body>
+
+</html>

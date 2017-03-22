@@ -1,7 +1,0 @@
-setup.py
-cconv/cconv.c
-myconv.egg-info/PKG-INFO
-myconv.egg-info/SOURCES.txt
-myconv.egg-info/dependency_links.txt
-myconv.egg-info/requires.txt
-myconv.egg-info/top_level.txt
